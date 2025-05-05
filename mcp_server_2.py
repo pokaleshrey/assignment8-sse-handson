@@ -98,7 +98,7 @@ Just respond in one word (Yes or No), and do not provide any further explanation
 
 @mcp.tool()
 def search_documents(query: str) -> list[str]:
-    """Search indexed documents for relevant content. Usage: search_documents|query="india Current GDP" """
+    """Search indexed documents for relevant content. Usage: search_documents^query="india Current GDP" """
     ensure_faiss_ready()
     mcp_log("SEARCH", f"Query: {query}")
     try:
@@ -186,7 +186,7 @@ def replace_images_with_captions(markdown: str) -> str:
 
 @mcp.tool()
 def extract_webpage(input: UrlInput) -> MarkdownOutput:
-    """Extract and convert webpage content to markdown. Usage: extract_webpage|input={"url": "https://example.com"}"""
+    """Extract and convert webpage content to markdown. Usage: extract_webpage^input={"url": "https://example.com"}"""
 
     downloaded = trafilatura.fetch_url(input.url)
     if not downloaded:
@@ -205,7 +205,7 @@ def extract_webpage(input: UrlInput) -> MarkdownOutput:
 
 @mcp.tool()
 def extract_pdf(input: FilePathInput) -> MarkdownOutput:
-    """Convert PDF file content to markdown format. Usage: extract_pdf|input={"file_path": "documents/dlf.pdf"}"""
+    """Convert PDF file content to markdown format. Usage: extract_pdf^input={"file_path": "documents/dlf.pdf"}"""
 
     if not os.path.exists(input.file_path):
         return MarkdownOutput(markdown=f"File not found: {input.file_path}")
@@ -400,22 +400,31 @@ def ensure_faiss_ready():
 
 @mcp.tool()
 def save_as_csv_file(input: DataFrameInput) -> DataFrameOutput:
-    """Save input as a csv file. Usage: save_as_csv_file|input={"df_dict": {"col1": [1,2,3], "col2": ["a","b","c"]}, "file_name": "my_data.csv"}"""
+    """Save input as a csv file. Usage: save_as_csv_file^input={"data": ["col1,col2,col3", "1,2,3", "4,5,6"], "file_name": "my_data.csv"}"""
+    f = None
     try:
-        # Convert dictionary to DataFrame
-        df = pd.DataFrame(input.df_dict)
+        # Create saved directory if it doesn't exist
+        save_dir = ROOT / "saved"
+        save_dir.mkdir(exist_ok=True)
         
         # Ensure file has an extension
         file_name = input.file_name if input.file_name.endswith('.csv') else f"{input.file_name}.csv"
+        save_path = save_dir / file_name
         
-        # Save to documents directory
-        save_path = ROOT / "saved" / file_name
-        df.to_csv(save_path, index=False)
+        # Write all lines at once
+        content = '\n'.join(line.strip() for line in input.data)
         
-        mcp_log("INFO", f"✅ DataFrame saved successfully to {save_path}")
+        # Use explicit file operations
+        f = open(save_path, 'w', encoding='utf-8', newline='')
+        f.write(content)
+        f.flush()
+        f.close()
+        f = None  # Clear the reference
+        
+        #mcp_log("INFO", f"✅ CSV data saved successfully to {save_path}")
         return DataFrameOutput(file_path=str(save_path))
     except Exception as e:
-        mcp_log("ERROR", f"Failed to save DataFrame: {e}")
+        mcp_log("ERROR", f"Failed to save CSV data: {str(e)}")
         raise
 
 

@@ -7,7 +7,7 @@ agent:
 
 strategy:
   type: conservative         # Options: conservative, retry_once, explore_all
-  max_steps: 3               # Maximum tool-use iterations before termination
+  max_steps: 10               # Maximum tool-use iterations before termination
 
 memory:
   top_k: 3
@@ -27,15 +27,15 @@ persona:
 mcp_servers:
   - id: math
     script: mcp_server_1.py
-    cwd: C:/Users/Public/EAG/S8 Share
+    cwd: C:/Users/Public/EAG/assignment8-sse-handson
     transport: stdio
   - id: documents
     script: mcp_server_2.py
-    cwd: C:/Users/Public/EAG/S8 Share
+    cwd: C:/Users/Public/EAG/assignment8-sse-handson
     transport: stdio
   - id: websearch
     script: mcp_server_3.py
-    cwd: C:/Users/Public/EAG/S8 Share
+    cwd: C:/Users/Public/EAG/assignment8-sse-handson
     transport: stdio
   - id: gmail-mcp
     transport: sse

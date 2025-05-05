@@ -35,41 +35,41 @@ mcp = FastMCP("Calculator")
 
 @mcp.tool()
 def add(input: AddInput) -> AddOutput:
-    """Add two numbers. Usage: add|input={"a": 10, "b": 5}"""
+    """Add two numbers. Usage: add^input={"a": 10, "b": 5}"""
     print("CALLED: add(AddInput) -> AddOutput")
     return AddOutput(result=input.a + input.b)
 
 @mcp.tool()
 def sqrt(input: SqrtInput) -> SqrtOutput:
-    """Compute the square root of a number. Usage: sqrt|input={"a": 49}"""
+    """Compute the square root of a number. Usage: sqrt^input={"a": 49}"""
     print("CALLED: sqrt(SqrtInput) -> SqrtOutput")
     return SqrtOutput(result=input.a ** 0.5)
 
 # subtraction tool
 @mcp.tool()
 def subtract(a: int, b: int) -> int:
-    """Subtract one number from another. Usage: subtract|a=10|b=3"""
+    """Subtract one number from another. Usage: subtract^a=10^b=3"""
     print("CALLED: subtract(a: int, b: int) -> int:")
     return int(a - b)
 
 # multiplication tool
 @mcp.tool()
 def multiply(a: int, b: int) -> int:
-    """Multiply two integers. Usage: multiply|a=6|b=7"""
+    """Multiply two integers. Usage: multiply^a=6^b=7"""
     print("CALLED: multiply(a: int, b: int) -> int:")
     return int(a * b)
 
 #  division tool
 @mcp.tool() 
 def divide(a: int, b: int) -> float:
-    """Divide one number by another. Usage: divide|a=20|b=4"""
+    """Divide one number by another. Usage: divide^a=20^b=4"""
     print("CALLED: divide(a: int, b: int) -> float:")
     return float(a / b)
 
 # power tool
 @mcp.tool()
 def power(a: int, b: int) -> int:
-    """Compute a raised to the power of b. Usage: power|a=2|b=10"""
+    """Compute a raised to the power of b. Usage: power^a=2^b=10"""
     print("CALLED: power(a: int, b: int) -> int:")
     return int(a ** b)
 
@@ -77,49 +77,49 @@ def power(a: int, b: int) -> int:
 # cube root tool
 @mcp.tool()
 def cbrt(a: int) -> float:
-    """Compute the cube root of a number. Usage: cbrt|a=27"""
+    """Compute the cube root of a number. Usage: cbrt^a=27"""
     print("CALLED: cbrt(a: int) -> float:")
     return float(a ** (1/3))
 
 # factorial tool
 @mcp.tool()
 def factorial(a: int) -> int:
-    """Compute the factorial of a number. Usage: factorial|a=5"""
+    """Compute the factorial of a number. Usage: factorial^a=5"""
     print("CALLED: factorial(a: int) -> int:")
     return int(math.factorial(a))
 
 # log tool
 # @mcp.tool()
 # def log(x: float, base: float = math.e) -> float:
-#     """Compute the log of x with optional base. Usage: log|x=1000|base=10"""
+#     """Compute the log of x with optional base. Usage: log^x=1000^base=10"""
 #     return math.log(x, base)
 
 
 # remainder tool
 @mcp.tool()
 def remainder(a: int, b: int) -> int:
-    """Compute the remainder of a divided by b. Usage: remainder|a=17|b=4"""
+    """Compute the remainder of a divided by b. Usage: remainder^a=17^b=4"""
     print("CALLED: remainder(a: int, b: int) -> int:")
     return int(a % b)
 
 # sin tool
 @mcp.tool()
 def sin(a: int) -> float:
-    """Compute sine of an angle in radians. Usage: sin|a=1"""
+    """Compute sine of an angle in radians. Usage: sin^a=1"""
     print("CALLED: sin(a: int) -> float:")
     return float(math.sin(a))
 
 # cos tool
 @mcp.tool()
 def cos(a: int) -> float:
-    """Compute cosine of an angle in radians. Usage: cos|a=1"""
+    """Compute cosine of an angle in radians. Usage: cos^a=1"""
     print("CALLED: cos(a: int) -> float:")
     return float(math.cos(a))
 
 # tan tool
 @mcp.tool()
 def tan(a: int) -> float:
-    """Compute tangent of an angle in radians. Usage: tan|a=1"""
+    """Compute tangent of an angle in radians. Usage: tan^a=1"""
     print("CALLED: tan(a: int) -> float:")
     return float(math.tan(a))
 
@@ -132,7 +132,7 @@ def mine(a: int, b: int) -> int:
 
 @mcp.tool()
 def create_thumbnail(image_path: str) -> Image:
-    """Create a 100x100 thumbnail from image. Usage: create_thumbnail|image_path="example.jpg\""""
+    """Create a 100x100 thumbnail from image. Usage: create_thumbnail^image_path="example.jpg\""""
     print("CALLED: create_thumbnail(image_path: str) -> Image:")
     img = PILImage.open(image_path)
     img.thumbnail((100, 100))
@@ -140,21 +140,21 @@ def create_thumbnail(image_path: str) -> Image:
 
 @mcp.tool()
 def strings_to_chars_to_int(input: StringsToIntsInput) -> StringsToIntsOutput:
-    """Convert characters to ASCII values. Usage: strings_to_chars_to_int|input={"string": "INDIA"}"""
+    """Convert characters to ASCII values. Usage: strings_to_chars_to_int^input={"string": "INDIA"}"""
     print("CALLED: strings_to_chars_to_int(StringsToIntsInput) -> StringsToIntsOutput")
     ascii_values = [ord(char) for char in input.string]
     return StringsToIntsOutput(ascii_values=ascii_values)
 
 @mcp.tool()
 def int_list_to_exponential_sum(input: ExpSumInput) -> ExpSumOutput:
-    """Sum exponentials of int list. Usage: int_list_to_exponential_sum|input={"numbers": [65, 66, 67]}"""
+    """Sum exponentials of int list. Usage: int_list_to_exponential_sum^input={"numbers": [65, 66, 67]}"""
     print("CALLED: int_list_to_exponential_sum(ExpSumInput) -> ExpSumOutput")
     result = sum(math.exp(i) for i in input.int_list)
     return ExpSumOutput(result=result)
 
 @mcp.tool()
 def fibonacci_numbers(n: int) -> list:
-    """Generate first n Fibonacci numbers. Usage: fibonacci_numbers|n=10"""
+    """Generate first n Fibonacci numbers. Usage: fibonacci_numbers^n=10"""
     print("CALLED: fibonacci_numbers(n: int) -> list:")
     if n <= 0:
         return []
@@ -170,7 +170,7 @@ import math
 
 # @mcp.tool()
 # def run_python_sandbox(input: PythonCodeInput) -> PythonCodeOutput:
-#     """Run math code in Python sandbox. Usage: run_python_sandbox|input={"code": "result = math.sqrt(49)"}"""
+#     """Run math code in Python sandbox. Usage: run_python_sandbox^input={"code": "result = math.sqrt(49)"}"""
 #     import sys, io
 #     import math
 
@@ -204,7 +204,7 @@ import subprocess
 
 @mcp.tool()
 def run_shell_command(input: ShellCommandInput) -> PythonCodeOutput:
-    """Run a safe shell command. Usage: run_shell_command|input={"command": "ls"}"""
+    """Run a safe shell command. Usage: run_shell_command^input={"command": "ls"}"""
     allowed_commands = ["ls", "cat", "pwd", "df", "whoami"]
 
     tokens = input.command.strip().split()
@@ -224,7 +224,7 @@ def run_shell_command(input: ShellCommandInput) -> PythonCodeOutput:
 
 @mcp.tool()
 def run_sql_query(input: PythonCodeInput) -> PythonCodeOutput:
-    """Run safe SELECT-only SQL query. Usage: run_sql_query|input={"code": "SELECT * FROM users LIMIT 5"}"""
+    """Run safe SELECT-only SQL query. Usage: run_sql_query^input={"code": "SELECT * FROM users LIMIT 5"}"""
     if not input.code.strip().lower().startswith("select"):
         return PythonCodeOutput(result="Only SELECT queries allowed.")
 

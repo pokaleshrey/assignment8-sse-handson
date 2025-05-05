@@ -24,7 +24,7 @@ class ToolCallResult(BaseModel):
 def parse_function_call(response: str) -> tuple[str, Dict[str, Any]]:
     """
     Parses a FUNCTION_CALL string like:
-    "FUNCTION_CALL: add|a=5|b=7"
+    "FUNCTION_CALL: add^a=5^b=7"
     Into a tool name and a dictionary of arguments.
     """
     try:
@@ -32,7 +32,7 @@ def parse_function_call(response: str) -> tuple[str, Dict[str, Any]]:
             raise ValueError("Invalid function call format.")
 
         _, raw = response.split(":", 1)
-        parts = [p.strip() for p in raw.split("|")]
+        parts = [p.strip() for p in raw.split("^")]
         tool_name, param_parts = parts[0], parts[1:]
 
         args = {}

@@ -53,7 +53,7 @@ class ShellCommandInput(BaseModel):
     command: str
 
 class DataFrameInput(BaseModel):
-    df_dict: dict
+    data: List[str]  # List of CSV strings
     file_name: str
 
 class DataFrameOutput(BaseModel):

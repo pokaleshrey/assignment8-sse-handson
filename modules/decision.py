@@ -36,7 +36,7 @@ You are a reasoning-driven AI agent with access to tools and memory.
 Your job is to solve the user's request step-by-step by reasoning through the problem, selecting a tool if needed, and continuing until the FINAL_ANSWER is produced.
 
 Respond in **strictly only in one line** using one of the following formats:
-- FUNCTION_CALL: tool_name|param1=value1|param2=value2
+- FUNCTION_CALL: tool_name^param1=value1^param2=value2
 - FINAL_ANSWER: [your final result] *(Not description, but actual final answer)
 
 🧠 Context:
@@ -52,14 +52,14 @@ Respond in **strictly only in one line** using one of the following formats:
 - Tool hint: {perception.tool_hint or 'None'}
 
 ✅ Examples:
-- FUNCTION_CALL: add|a=5|b=3
-- FUNCTION_CALL: strings_to_chars_to_int|input.string=INDIA
-- FUNCTION_CALL: int_list_to_exponential_sum|input.int_list=[73,78,68,73,65]
+- FUNCTION_CALL: add^a=5^b=3
+- FUNCTION_CALL: strings_to_chars_to_int^input.string=INDIA
+- FUNCTION_CALL: int_list_to_exponential_sum^input.int_list=[73,78,68,73,65]
 - FINAL_ANSWER: [42] → Always mention final answer to the query, not that some other description.
 
 ✅ Examples:
 - User asks: "What’s the relationship between Cricket and Sachin Tendulkar"
-  - FUNCTION_CALL: search_documents|query="relationship between Cricket and Sachin Tendulkar"
+  - FUNCTION_CALL: search_documents^query="relationship between Cricket and Sachin Tendulkar"
   - [receives a detailed document]
   - FINAL_ANSWER: [Sachin Tendulkar is widely regarded as the "God of Cricket" due to his exceptional skills, longevity, and impact on the sport in India. He is the leading run-scorer in both Test and ODI cricket, and the first to score 100 centuries in international cricket. His influence extends beyond his statistics, as he is seen as a symbol of passion, perseverance, and a national icon. ]
 
